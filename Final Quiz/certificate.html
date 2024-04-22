@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Generator</title>
+  <style>
+    
+     /* Common styles */
+     @font-face {
+            font-family: 'HP';
+            src: url('Fonts/Hp.ttf') format('truetype');
+            /* font-weight: bold;
+            font-style: normal; */
+        }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .container {
+      max-width: 3000px;
+      margin: 0px auto;
+      width: 3000px;
+      /* Fixed width */
+      height: 2400px;
+      /* Fixed height */
+      text-align: center;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      /* Green */
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    .download-btn {
+      background-color: #008CBA;
+      /* Blue */
+    }
+
+    #certificate {
+      position: relative;
+      margin-top: 0px;
+      display: none;
+    }
+
+    #certificate img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .certificate-text {
+      position: absolute;
+      top: 46%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      font-size: 50px;
+      color: black;
+      text-align: center;
+      width: 80%;
+    }
+
+    .certificate-text h3 {
+      font-size: 100px;
+      margin-bottom: 10px;
+    }
+
+    .certificate-text p {
+      margin: 10px 0;
+      text-align: justify;
+    }
+
+    .certificate-bottom {
+      position: absolute;
+      bottom: 600px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 40px;
+      color: black;
+      text-align: center;
+      width: 80%;
+    }
+
+    .certificate-date {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 30px;
+      color: black;
+      text-align: center;
+      width: 80%;
+    }
+
+  </style>
+</head>
+
+<body onload="generateCertificate(); setTimeout(downloadCertificate, 1000)">
+  <div class="container">
+    <div id="certificate"></div>
+    
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    function generateCertificate() {
+      var urlParams = new URLSearchParams(window.location.search);
+      const name = urlParams.get('name'); // Example name
+      const score = parseInt(urlParams.get('percentage')); // Example score
+      if (score >= 80) {
+        const certificateText = `
+      <div class="certificate-text">
+        <h3>${name}</h3>
+        <p>This certifies that <strong>${name}</strong> has successfully earned the title of "Certified Potterhead" through exemplary performance in the Wizardzworld Quiz. This distinction acknowledges profound knowledge and passion for the magical universe of Harry Potter. Moreover, the individual has achieved a score of <strong>${score}%</strong>.</p>
+      </div>
+      <div class="certificate-bottom">
+        <p>By virtue of this certification, ${name} is hereby acknowledged as a beacon of Potterhead pride within the global community of Harry Potter enthusiasts. May they continue to uphold the spirit of magic and adventure that defines the essence of Wizardzworld and the wizarding world of Harry Potter.</p>
+      </div>
+      <div class="hp">
+      <img src="/Resources/Hp.png" alt="Quiz Image" id="id">
+      </div>
+      <div class="certificate-date">
+        <p>Awarded on ${new Date().toLocaleDateString()}</p>
+      </div>
+    `;
+        const certificate = document.getElementById('certificate');
+        const certificateImg = new Image();
+        certificateImg.onload = async function () {
+          certificateImg.classList.add('certificate-img'); // Add a class to style the image
+          certificate.innerHTML = `${certificateText}`;
+          certificate.appendChild(certificateImg); // Append the image after text
+          certificate.style.display = 'block';
+          document.getElementById('downloadBtn').style.display = 'block';
+
+          // Start download only after the certificate image has loaded
+          await downloadCertificate();
+        };
+        certificateImg.src = 'Resources/Certificate.jpg'; // Replace with your certificate image URL
+      } else {
+        alert('Score must be at least 80% to generate certificate.');
+      }
+    }
+
+    async function sleep(time) {
+      await new Promise(resolve => {
+        setTimeout(resolve, time);
+      });
+    }
+
+    async function downloadCertificate() {
+      const certificate = document.getElementById('certificate');
+      // Convert certificate to image
+      const dataUrl = await domtoimage.toJpeg(certificate, { quality: 1.0 })
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'certificate.jpg';
+      await sleep(2000);
+      await link.click();
+      await sleep(2000);
+      window.close();
+    }
+
+
+
+  </script>
+</body>
+
+</html>

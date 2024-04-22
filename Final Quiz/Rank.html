@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certified Potterheads</title>
+  <style>
+    /* Your CSS styles */
+
+    @font-face {
+      font-family: 'HarryPotter';
+      src: url('Fonts/WizardWorldSimplified-Kxr7.ttf') format('truetype');
+      /* font-weight: bold;
+            font-style: normal; */
+    }
+
+    body {
+      background-color: #161616;
+      color: #fff;
+      font-family: 'Garamond', serif;
+      background-image: url('https://images7.alphacoders.com/130/1304925.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      /* Keep background image fixed */
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    #header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 10px 0;
+    }
+
+    #container {
+      max-width: 800px;
+      margin: 70px auto 20px auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Common styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  max-height: calc(100vh - 260px); /* Adjust this value according to your header and footer height */
+  overflow-y: auto;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #1d1d1d;
+  color: #ffd700;
+}
+
+/* Font sizes for desktop screens */
+@media screen and (min-width: 768px) {
+  th,
+  td {
+    font-size: 1rem; /* Desktop font size */
+  }
+}
+
+/* Font sizes for mobile screens */
+@media screen and (max-width: 767px) {
+  th,
+  td {
+    font-size: 0.8rem; /* Mobile font size */
+  }
+}
+
+/* Border radius for first and last columns */
+td:first-child,
+th:first-child {
+  border-top-left-radius: 10px;
+  
+}
+
+td:last-child,
+th:last-child {
+  border-top-right-radius: 10px;
+  
+}
+
+    
+
+    button {
+      background-color: #ffd700;
+      color: #161616;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #ffec8b;
+    }
+
+    .search-container {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .search-input {
+      padding: 10px;
+      width: 70%;
+      border: 1px solid #ccc;
+      border-radius: 5px 0 0 5px;
+    }
+
+    .search-button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #ffd700;
+      color: #000;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+
+    .search-button:hover {
+      background-color: #0056b3;
+    }
+
+    .search-input:focus,
+    .search-button:focus {
+      outline: none;
+    }
+
+    #pagination {
+      position: sticky;
+      bottom: 0;
+      background-color: #161616;
+      padding: 10px 0;
+      border-radius: 5px;
+    }
+
+    #pagination button {
+      margin: 0 5px;
+    }
+
+    /* Styles for top rankers */
+    .top-ranker {
+      font-weight: bold;
+    }
+
+
+
+    /* Styles for top rankers */
+    .top-ranker {
+      font-weight: bold;
+    }
+
+
+    .rank-container {
+      display: flex;
+      /* Use flexbox layout */
+      align-items: center;
+      /* Align items vertically */
+    }
+
+    .medal-icon {
+      width: 30px;
+      /* Adjust the size of the medal icons as needed */
+      height: auto;
+      /* Automatically adjust the height while maintaining aspect ratio */
+      margin-left: 5px;
+      /* Add some space between rank text and icon */
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">
+    <h1>Certified Potterheads</h1>
+    <div class="search-container">
+      <input type="text" id="searchBar" class="search-input" placeholder="Search...">
+      <button id="searchBtn" class="search-button">Search</button>
+    </div>
+  </div>
+  <br><br><br>
+  <div id="container">
+    <div id="table-container">
+      <table id="userTable">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Insta</th>
+            <th>Score</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows will be added dynamically -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="pagination">
+      <span id="currentPage">Page 1</span>
+      <button id="prevBtn" disabled>Previous</button>
+      <button id="nextBtn">Next</button>
+    </div>
+  </div>
+  <script type="module">
+    import { getDatabase, ref, onValue, get, child } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB34m9e4M-EPoNK2oMwUkegPIZGZm7T85w",
+      authDomain: "wizardz-quiz.firebaseapp.com",
+     databaseURL: "https://wizardz-quiz-default-rtdb.firebaseio.com",
+  projectId: "wizardz-quiz",
+  storageBucket: "wizardz-quiz.appspot.com",
+  messagingSenderId: "623484351184",
+  appId: "1:623484351184:web:f8cc1d20751932b53e64d5",
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const tRef = ref(db, "certificate-quiz/users/");
+    let currentPage = 1;
+    let totalEntries = 0;
+    const pageSize = 7;
+
+    onValue(tRef, (snapshot) => {
+      const data = snapshot.val();
+      totalEntries = data ? Object.keys(data).length : 0;
+      updatePagination(currentPage);
+      showData(currentPage);
+    });
+
+    document.getElementById("searchBtn").addEventListener('click', () => {
+      const query = document.getElementById("searchBar").value;
+      searchData(query.trim());
+    });
+
+    document.getElementById("nextBtn").addEventListener('click', () => {
+      currentPage++;
+      showData(currentPage);
+    });
+
+    document.getElementById("prevBtn").addEventListener('click', () => {
+      currentPage--;
+      showData(currentPage);
+    });
+
+    function showData(page) {
+      onValue(tRef, (snapshot) => {
+        const table = document.getElementById("userTable");
+        clearTable();
+        const tbody = document.createElement("tbody");
+        const data = snapshot.val();
+
+        const dataArray = data ? Object.values(data) : [];
+
+        const sortedData = dataArray.sort((a, b) => {
+          if (a.percentage === b.percentage) {
+            return a.completionTime - b.completionTime;
+          }
+          return b.percentage - a.percentage;
+        });
+
+        const start = (page - 1) * pageSize;
+        const end = start + pageSize;
+        const paginatedData = sortedData.slice(start, end);
+
+        paginatedData.forEach((item, index) => {
+          const row = document.createElement('tr');
+          const rankCell = document.createElement('td'); // Rank cell
+          const nameCell = document.createElement('td');
+          const instaIdCell = document.createElement('td');
+          const percentageCell = document.createElement('td');
+          const completionTimeCell = document.createElement('td');
+
+          rankCell.textContent = start + index + 1; // Set rank value
+          nameCell.textContent = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+
+
+          // Create anchor element for Instagram ID
+          const instaLink = document.createElement('a');
+          instaLink.href = 'https://www.instagram.com/' + item.instaid;
+          instaLink.textContent = item.instaid;
+
+
+
+
+
+          // Set text color based on rank
+          if (start + index < 3) {
+            if (start + index === 0) {
+              // Add gold medal icon after rank
+              const goldMedalIcon = document.createElement('img');
+              goldMedalIcon.src = 'Resources/gold.png';
+              goldMedalIcon.alt = 'Gold Medal';
+              goldMedalIcon.classList.add('medal-icon');
+              rankCell.appendChild(goldMedalIcon);
+              instaLink.style.color = 'white';
+            } else if (start + index === 1) {
+              // Add silver medal icon after rank
+              const silverMedalIcon = document.createElement('img');
+              silverMedalIcon.src = 'Resources/silver.png';
+              silverMedalIcon.alt = 'Silver Medal';
+              silverMedalIcon.classList.add('medal-icon');
+              rankCell.appendChild(silverMedalIcon);
+              instaLink.style.color = 'white';
+            } else if (start + index === 2) {
+              // Add bronze medal icon after rank
+              const bronzeMedalIcon = document.createElement('img');
+              bronzeMedalIcon.src = 'Resources/bronze.png';
+              bronzeMedalIcon.alt = 'Bronze Medal';
+              bronzeMedalIcon.classList.add('medal-icon');
+              rankCell.appendChild(bronzeMedalIcon);
+              instaLink.style.color = 'white';
+            }
+          } else {
+            instaLink.style.color = 'white';
+            rankCell.textContent = start + index + 1; // Display rank number for ranks greater than 
+            nameCell.textContent = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+
+          }
+          // Add underline style
+          instaLink.style.textDecoration = 'underline';
+          instaLink.target = '_blank'; // Open link in new tab
+          instaIdCell.appendChild(instaLink);
+
+          completionTimeCell.textContent = item.completionTime + " secs";
+          percentageCell.textContent = Math.round(item.percentage) + " %";
+
+          row.appendChild(rankCell); // Add rank cell before other cells
+          row.appendChild(nameCell);
+          row.appendChild(instaIdCell);
+          row.appendChild(percentageCell);
+          row.appendChild(completionTimeCell);
+
+          if (start + index < 3) {
+            row.classList.add('top-ranker'); // Add class to top 3 rankers
+            if (start + index === 0) {
+              row.classList.add('gold'); // Gold for rank 1
+            } else if (start + index === 1) {
+              row.classList.add('silver'); // Silver for rank 2
+            } else if (start + index === 2) {
+              row.classList.add('bronze'); // Bronze for rank 3
+            }
+          }
+
+          tbody.appendChild(row);
+        });
+
+
+
+
+        table.appendChild(tbody);
+        updatePagination(page);
+      });
+    }
+function searchData(query) {
+  if (!query) {
+    console.log("No query provided");
+    showData(currentPage); // Show data for current page
+  } else {
+    console.log("Query provided:", query);
+    get(tRef).then((snapshot) => {
+      console.log("Snapshot:", snapshot);
+      const table = document.getElementById("userTable");
+      clearTable();
+      const tbody = document.createElement("tbody");
+      const data = snapshot.val() || {};
+      const dataArray = Object.values(data);
+      console.log("Data Array:", dataArray);
+
+      // Sort the entire data first
+      const sortedData = dataArray.sort((a, b) => {
+        if (a.percentage !== b.percentage) {
+          return b.percentage - a.percentage; // Sort by percentage (descending)
+        } else {
+          return a.completionTime - b.completionTime; // If percentage is same, sort by completion time (ascending)
+        }
+      });
+
+      console.log("Sorted Data:", sortedData);
+
+      // Assign ranks based on sorted data
+      sortedData.forEach((item, index) => {
+        item.originalRank = index + 1;
+      });
+
+      console.log("Data with Original Ranks:", sortedData);
+
+      // Filter the sorted data based on the query
+      const filteredData = sortedData.filter(item =>
+        item.name.toLowerCase().includes(query.toLowerCase()) || 
+        item.instaid.toLowerCase().includes(query.toLowerCase())
+      );
+
+      console.log("Filtered Data:", filteredData);
+
+      filteredData.forEach((item, index) => {
+        const rank = item.originalRank;
+        const row = document.createElement('tr');
+        const rankCell = document.createElement('td'); // Rank cell
+        const nameCell = document.createElement('td');
+        const instaIdCell = document.createElement('td');
+        const percentageCell = document.createElement('td');
+        const completionTimeCell = document.createElement('td');
+
+        rankCell.textContent = rank; // Display original rank
+        nameCell.textContent = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+
+        // Create anchor element for Instagram ID
+        const instaLink = document.createElement('a');
+        instaLink.href = 'https://www.instagram.com/' + item.instaid;
+        instaLink.textContent = item.instaid;
+
+        // Set text color based on rank and add medal icon
+        if (rank === 1) {
+          // Add gold medal icon after rank
+          const goldMedalIcon = document.createElement('img');
+          goldMedalIcon.src = 'Resources/gold.png';
+          goldMedalIcon.alt = 'Gold Medal';
+          goldMedalIcon.classList.add('medal-icon');
+          rankCell.appendChild(goldMedalIcon);
+          instaLink.style.color = 'white';
+        } else if (rank === 2) {
+          // Add silver medal icon after rank
+          const silverMedalIcon = document.createElement('img');
+          silverMedalIcon.src = 'Resources/silver.png';
+          silverMedalIcon.alt = 'Silver Medal';
+          silverMedalIcon.classList.add('medal-icon');
+          rankCell.appendChild(silverMedalIcon);
+          instaLink.style.color = 'white';
+        } else if (rank === 3) {
+          // Add bronze medal icon after rank
+          const bronzeMedalIcon = document.createElement('img');
+          bronzeMedalIcon.src = 'Resources/bronze.png';
+          bronzeMedalIcon.alt = 'Bronze Medal';
+          bronzeMedalIcon.classList.add('medal-icon');
+          rankCell.appendChild(bronzeMedalIcon);
+          instaLink.style.color = 'white';
+        } else {
+          instaLink.style.color = 'white';
+        }
+
+        // Add underline style
+        instaLink.style.textDecoration = 'underline';
+        instaLink.target = '_blank'; // Open link in new tab
+        instaIdCell.appendChild(instaLink);
+
+        completionTimeCell.textContent = item.completionTime + " secs";
+        percentageCell.textContent = Math.round(item.percentage) + " %";
+
+        row.appendChild(rankCell); // Add rank cell before other cells
+        row.appendChild(nameCell);
+        row.appendChild(instaIdCell);
+        row.appendChild(percentageCell);
+        row.appendChild(completionTimeCell);
+
+        if (rank <= 3) {
+          row.classList.add('top-ranker'); // Add class to top 3 rankers
+          if (rank === 1) {
+            row.classList.add('gold'); // Gold for rank 1
+          } else if (rank === 2) {
+            row.classList.add('silver'); // Silver for rank 2
+          } else if (rank === 3) {
+            row.classList.add('bronze'); // Bronze for rank 3
+          }
+        }
+
+        tbody.appendChild(row);
+      });
+
+      table.appendChild(tbody);
+    });
+  }
+}
+
+
+
+
+
+
+
+
+    function clearTable() {
+      const table = document.getElementById("userTable");
+      for (let i = table.childNodes.length - 1; i >= 0; i--) {
+        if (table.childNodes[i].nodeName !== "THEAD") {
+          table.childNodes[i].remove();
+        }
+      }
+    }
+
+    document.getElementById("searchBar").addEventListener('input', () => {
+      const query = document.getElementById("searchBar").value;
+      searchData(query.trim());
+    });
+
+
+    function updatePagination(page) {
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const currentPageSpan = document.getElementById("currentPage");
+      currentPageSpan.textContent = `Page ${page}`;
+
+      prevBtn.disabled = page === 1;
+      nextBtn.disabled = totalEntries === 0 || page === Math.ceil(totalEntries / pageSize);
+    }
+  </script>
+</body>
+
+</html>
