@@ -154,6 +154,7 @@ function showWinDialog(name, instagramId, timeTaken) {
                 <img src="${randomProduct.image}" alt="${randomProduct.name}" style="max-width: 100%; height: auto;">
                 <br><br><br>
                 <a href="${randomProduct.link}" target="_blank" class="product-btn" style="background-color: #774a2d; color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px;">Claim Reward</a>
+                <br><br><button id="quizrank">Check Your Rank</button>
             </div>
         </div>
     `;
@@ -168,6 +169,10 @@ document.getElementById("downloadCertBtn").addEventListener('click', () => {
     window.open(`certificate.html?name=${name}&percentage=${percentage}`, "_blank")
     // window.location.href = "certificate.html";
 })
+
+document.getElementById("quizrank").addEventListener('click', () => {
+    window.open('Rank.html', '_blank');
+});
 
 
 retakeQuizBtn.addEventListener('click', () => {
@@ -229,6 +234,10 @@ function hideQuizImage() {
     quizImage.style.display = 'none';
 }
 
+function hideResultbutton() {
+    quizImage.style.display = 'none';
+}
+
 // Event listener for the start quiz button
 // startQuizBtn.addEventListener('click', () => {
 //     // Hide the quiz image when the button is clicked
@@ -250,3 +259,19 @@ function showQuizImage() {
 //     // Other logic for retaking the quiz...
 // });
 
+const quizRankBtn = document.getElementById('quizrank');
+// Event listener for the "Start Quiz" button
+startQuizBtn.addEventListener('click', () => {
+    // Hide the quiz rank button
+    quizRankBtn.style.display = 'none';
+    
+    // Other logic for starting the quiz...
+});
+
+// Event listener for the "Retake Quiz" button
+retakeQuizBtn.addEventListener('click', () => {
+    // Show the quiz rank button
+    quizRankBtn.style.display = 'block';
+    
+    // Other logic for retaking the quiz...
+});
