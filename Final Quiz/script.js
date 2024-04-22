@@ -267,11 +267,3 @@ startQuizBtn.addEventListener('click', () => {
     
     // Other logic for starting the quiz...
 });
-
-// Event listener for the "Retake Quiz" button
-retakeQuizBtn.addEventListener('click', () => {
-    // Show the quiz rank button
-    quizRankBtn.style.display = 'block';
-    
-    // Other logic for retaking the quiz...
-});
