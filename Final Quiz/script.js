@@ -172,7 +172,7 @@ document.getElementById("downloadCertBtn").addEventListener('click', () => {
 })
 
 document.getElementById("quizrank").addEventListener('click', () => {
-    window.open('Rank.html', '_blank');
+    window.open('https://wizardzworld.com/pages/quiz-rank', '_blank');
 });
 
 retakeQuizBtn.addEventListener('click', () => {
