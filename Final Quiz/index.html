@@ -18,8 +18,11 @@
     <div class="container">
         <img src="https://i.postimg.cc/5NNjkgv6/quiz-2.png" alt="Quiz Image" id="quizImage">
         <div id="inputFields">
-            <input type="text" id="nameInput" class="inputField" placeholder="Enter your name"><br><br>
-            <input type="text" id="instagramInput" class="inputField" placeholder="Enter your Insta Username"><br><br>
+            <input type="text" id="nameInput" class="inputField" placeholder="Enter your name">
+            <span class="error-message">Name cannot be empty</span><br><br>
+            <input type="text" id="instagramInput" class="inputField" placeholder="Enter your Insta Username">
+            <span class="error-message">Instagram username cannot be empty</span><br><br>
+
         </div>
         <button id="startQuizBtn">Start Quiz</button>
         <button id="quizrank">Check Your Rank</button>
@@ -38,9 +41,10 @@
                     <div id="productContainer" class="product"></div>
                     <div style="display: flex;">
                         <button id="retakeQuizBtn" class="dialogBtn" style="margin-right: 5px;">Retake Quiz</button>
-                        <button id="downloadCertBtn" class="dialogBtn" style="margin-left: 5px;">Download Certificate</button>
+                        <button id="downloadCertBtn" class="dialogBtn" style="margin-left: 5px;">Download
+                            Certificate</button>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
