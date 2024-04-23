@@ -152,7 +152,7 @@ function showWinDialog(name, instagramId, timeTaken) {
             <h3 style="margin-top: 20px; margin-bottom: 5px;">You've Won: ${randomProduct.name}</h3>
             <div id="productContainer" class="product" style="margin-top: 10px;">
                 <img src="${randomProduct.image}" alt="${randomProduct.name}" style="max-width: 100%; height: auto;">
-                <br><br><br>
+                <br><br>
                 <a href="${randomProduct.link}" target="_blank" class="product-btn" style="background-color: #774a2d; color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; font-size: 0.8rem;">Claim Reward</a>
                 <a href="/Rank.html" target="_blank" class="product-btn" style="background-color: #774a2d; color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; font-size: 0.8rem;">Check Your Rank</a>
             </div>
