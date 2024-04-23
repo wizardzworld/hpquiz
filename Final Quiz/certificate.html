@@ -135,49 +135,41 @@
       </div>
     `;
         const certificate = document.getElementById('certificate');
-const certificateImg = new Image();
+        const certificateImg = new Image();
+        certificateImg.onload = async function () {
+          certificateImg.classList.add('certificate-img'); // Add a class to style the image
+          certificate.innerHTML = `${certificateText}`;
+          certificate.appendChild(certificateImg); // Append the image after text
+          certificate.style.display = 'block';
+          document.getElementById('downloadBtn').style.display = 'block';
 
-certificateImg.onload = async function () {
-  certificateImg.classList.add('certificate-img'); // Add a class to style the image
-  certificate.innerHTML = `${certificateText}`;
-  certificate.appendChild(certificateImg); // Append the image after text
-  certificate.style.display = 'block';
+          // Start download only after the certificate image has loaded
+          await downloadCertificate();
+        };
+        certificateImg.src = 'https://i.postimg.cc/zvbxsLnx/Certificate-48.jpg'; // Replace with your certificate image URL
+      } else {
+        alert('Score must be at least 80% to generate certificate.');
+      }
+    }
 
-  setTimeout(async () => {
-    await downloadCertificate();
-  }, 2000); // Wait for 2 seconds before initiating download
-};
+    async function sleep(time) {
+      await new Promise(resolve => {
+        setTimeout(resolve, time);
+      });
+    }
 
-certificateImg.onerror = function () {
-  console.error('Failed to load certificate image.');
-  // Handle error scenario here, such as displaying an error message or taking alternative action.
-  alert('Failed to load certificate image.');
-};
-
-certificateImg.src = 'Resources/Certificate.jpg'; // Replace with your certificate image URL
-
-async function downloadCertificate() {
-  // Check if certificate image loaded successfully
-  if (certificateImg.complete && certificateImg.naturalHeight !== 0) {
-    const dataUrl = await domtoimage.toJpeg(certificate, { quality: 1.0 });
-    const link = document.createElement('a');
-    link.href = dataUrl;
-    link.download = 'certificate.jpg';
-    await sleep(3000); // Wait for 3 seconds before initiating download
-    await link.click();
-    await sleep(3000);
-    window.close();
-  } else {
-    console.error('Certificate image not loaded successfully.');
-    alert('Certificate image not loaded successfully.');
-  }
-}
-
-async function sleep(time) {
-  await new Promise(resolve => {
-    setTimeout(resolve, time);
-  });
-}
+    async function downloadCertificate() {
+      const certificate = document.getElementById('certificate');
+      // Convert certificate to image
+      const dataUrl = await domtoimage.toJpeg(certificate, { quality: 1.0 })
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'certificate.jpg';
+      await sleep(2000);
+      await link.click();
+      await sleep(2000);
+      window.close();
+    }
 
 
   </script>
