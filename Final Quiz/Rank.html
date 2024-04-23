@@ -308,10 +308,11 @@ th:last-child {
     var button = document.getElementById("quizBtn");
 
     // Add a click event listener to the button
-    button.addEventListener("click", function() {
-        // Redirect the user to another website when the button is clicked
-        window.location.href = "https://wizardzworld.com/pages/certificate-quiz";
-    });
+button.addEventListener("click", function() {
+    // Redirect the user to another website in a new tab when the button is clicked
+    window.open("https://wizardzworld.com/pages/certificate-quiz", "_blank");
+});
+
 
 
           // Set text color based on rank
