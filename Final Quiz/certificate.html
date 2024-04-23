@@ -129,10 +129,10 @@ backgroundImage.onload = function () {
   }
 
   // Convert canvas to data URL and initiate download
-  const dataUrl = canvas.toDataURL('image/png');
+  const dataUrl = canvas.toDataURL('image/jpg');
   const link = document.createElement('a');
   link.href = dataUrl;
-  link.download = 'certificate.png';
+  link.download = 'certificate.jpg';
   link.click();
 };
 
