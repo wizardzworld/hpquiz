@@ -167,7 +167,7 @@ function showWinDialog(name, instagramId, timeTaken) {
 document.getElementById("downloadCertBtn").addEventListener('click', () => {
     const name = encodeURIComponent(document.getElementById('nameInput').value);
     percentage = encodeURIComponent(percentage)
-    window.open(`https://wizardzworld.com/pages/certificate.html?name=${name}&percentage=${percentage}`, "_blank")
+    window.open(`certificate.html?name=${name}&percentage=${percentage}`, "_blank")
     // window.location.href = "certificate.html";
 })
 
