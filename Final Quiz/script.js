@@ -191,7 +191,7 @@ retakeQuizBtn.addEventListener('click', () => {
     quizContent.style.display = 'block';
     scoreBanner.style.display = 'block';
     shuffle(questions);
-    questions.splice(1);
+    questions.splice(25);
     currentQuestion = 0;
     score = 0;
     wrongs = 0;
@@ -206,7 +206,7 @@ startQuizBtn.addEventListener('click', () => {
     quizContent.style.display = 'block';
     scoreBanner.style.display = 'block';
     shuffle(questions);
-    questions.splice(1);
+    questions.splice(25);
     currentQuestion = 0;
     score = 0;
     wrongs = 0;
