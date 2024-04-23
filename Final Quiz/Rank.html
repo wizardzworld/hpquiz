@@ -220,6 +220,7 @@ th:last-child {
       <span id="currentPage">Page 1</span>
       <button id="prevBtn" disabled>Previous</button>
       <button id="nextBtn">Next</button>
+      <button id="quizBtn">Play Quiz</button>
     </div>
   </div>
   <script type="module">
@@ -303,7 +304,14 @@ th:last-child {
           instaLink.textContent = item.instaid;
 
 
+    // Get the button element
+    var button = document.getElementById("quizBtn");
 
+    // Add a click event listener to the button
+    button.addEventListener("click", function() {
+        // Redirect the user to another website when the button is clicked
+        window.location.href = "https://wizardzworld.com/pages/certificate-quiz";
+    });
 
 
           // Set text color based on rank
