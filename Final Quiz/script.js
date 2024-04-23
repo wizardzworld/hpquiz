@@ -152,7 +152,7 @@ function showWinDialog(name, instagramId, timeTaken) {
             <h3 style="margin-top: 20px; margin-bottom: 5px;">You've Won: ${randomProduct.name}</h3>
             <div id="productContainer" class="product" style="margin-top: 10px;">
                 <img src="${randomProduct.image}" alt="${randomProduct.name}" style="max-width: 100%; height: auto;">
-                <br><br>
+                <br><br><br>
                 <a href="${randomProduct.link}" target="_blank" class="product-btn" style="background-color: #774a2d; color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; font-size: 0.8rem;">Claim Reward</a>
                 <a href="/Rank.html" target="_blank" class="product-btn" style="background-color: #774a2d; color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px; font-size: 0.8rem;">Check Your Rank</a>
             </div>
@@ -191,7 +191,7 @@ retakeQuizBtn.addEventListener('click', () => {
     quizContent.style.display = 'block';
     scoreBanner.style.display = 'block';
     shuffle(questions);
-    questions.splice(25);
+    questions.splice(1);
     currentQuestion = 0;
     score = 0;
     wrongs = 0;
@@ -206,7 +206,7 @@ startQuizBtn.addEventListener('click', () => {
     quizContent.style.display = 'block';
     scoreBanner.style.display = 'block';
     shuffle(questions);
-    questions.splice(25);
+    questions.splice(1);
     currentQuestion = 0;
     score = 0;
     wrongs = 0;
@@ -269,4 +269,57 @@ startQuizBtn.addEventListener('click', () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    const nameInput = document.getElementById("nameInput");
+    const instagramInput = document.getElementById("instagramInput");
+    const startQuizBtn = document.getElementById("startQuizBtn");
+
+    // Disable the Start Quiz button by default
+    startQuizBtn.disabled = true;
+
+    // Add event listeners to input fields to enable/disable the Start Quiz button and handle errors
+    nameInput.addEventListener("input", function() {
+        toggleStartQuizBtn();
+        handleInputError(nameInput);
+    });
+
+    instagramInput.addEventListener("input", function() {
+        toggleStartQuizBtn();
+        handleInputError(instagramInput);
+    });
+
+    function toggleStartQuizBtn() {
+        // Enable the Start Quiz button only if both input fields are not empty
+        startQuizBtn.disabled = nameInput.value.trim() === '' || instagramInput.value.trim() === '';
+    }
+
+    function handleInputError(inputField) {
+        const errorSpan = inputField.nextElementSibling; // Get the next sibling (span) element
+        // Remove error styling if input field is not empty
+        if (inputField.value.trim() !== '') {
+            inputField.classList.remove("error");
+            errorSpan.style.display = "none"; // Hide the error message
+        } else {
+            // Add error styling if input field is empty
+            inputField.classList.add("error");
+            errorSpan.style.display = "block"; // Show the error message
+        }
+    }
+
+    startQuizBtn.addEventListener("click", function() {
+        // Check if the input fields are empty (this should not be necessary now since the button is disabled)
+        if (nameInput.value.trim() === '' || instagramInput.value.trim() === '') {
+            // Display error message and indicate the error on input fields (optional)
+            return; // Prevent quiz from starting
+        }
+
+        // If input fields are filled, proceed to start the quiz
+        startQuiz();
+    });
+
+    function startQuiz() {
+        // Add your code to start the quiz here
+    }
+});
+    
 
