@@ -143,7 +143,7 @@ function showWinDialog(name, instagramId, timeTaken) {
     const randomProduct = products[Math.floor(Math.random() * products.length)];
 
     winDialogContent.innerHTML = `
-        <div style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: toFixedi; align-items: center;">
             <h2 style="margin-bottom: 10px;">${message}</h2>
             <p style="font-size: 1.2rem; margin-bottom: 5px;">${certification}</p>
             <p style="font-size: 1.2rem; margin-bottom: 5px;">Your Score: ${score}/${questions.length} (${percentage}%)</p>
@@ -154,8 +154,9 @@ function showWinDialog(name, instagramId, timeTaken) {
                 <img src="${randomProduct.image}" alt="${randomProduct.name}" style="max-width: 100%; height: auto;">
                 <br><br><br>
                 <a href="${randomProduct.link}" target="_blank" class="product-btn" style="background-color: #774a2d; color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px;">Claim Reward</a>
-                <br><br><button id="quizrank">Check Your Rank</button>
+                <a href="/Rank.html" target="_blank" class="product-btn" style="background-color: #774a2d; color: white; text-decoration: none; padding: 8px 16px; border-radius: 4px;">Check Your Rank</a>
             </div>
+            
         </div>
     `;
     winDialog.style.display = 'block';
@@ -173,7 +174,6 @@ document.getElementById("downloadCertBtn").addEventListener('click', () => {
 document.getElementById("quizrank").addEventListener('click', () => {
     window.open('Rank.html', '_blank');
 });
-
 
 retakeQuizBtn.addEventListener('click', () => {
     // currentQuestion = 0;
@@ -267,3 +267,6 @@ startQuizBtn.addEventListener('click', () => {
     
     // Other logic for starting the quiz...
 });
+
+
+
