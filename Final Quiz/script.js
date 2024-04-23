@@ -90,7 +90,7 @@ function closeDialog() {
 displayQuestion();
 
 function showWinDialog(name, instagramId, timeTaken) {
-    percentage = ((score / questions.length) * 100).toFixed(2); 
+    percentage = ((score / questions.length) * 100).toFixed(2);
     let message;
     let certification;
     if (percentage >= 80) {
@@ -163,11 +163,26 @@ function showWinDialog(name, instagramId, timeTaken) {
     winDialog.style.display = 'block';
 }
 
+function handleInputError(inputField) {
+    const errorSpan = inputField.nextElementSibling; // Get the next sibling (span) element
+    // Remove error styling if input field is not empty
+    if (inputField.value.trim() !== '') {
+        inputField.classList.remove("error");
+        errorSpan.style.display = "none"; // Hide the error message
+    } else {
+        // Add error styling if input field is empty
+        inputField.classList.add("error");
+        errorSpan.style.display = "block"; // Show the error message
+    }
+}
 
 
 document.getElementById("downloadCertBtn").addEventListener('click', () => {
     const name = document.getElementById('nameInput').value;
-    generateAndDownloadCertificate(name, percentage);
+    if (percentage >= 80) {
+        showDialog("Downloading certificate please wait...", "#ab3143");
+        generateAndDownloadCertificate(name, percentage);
+    }
     // window.open(`certificate.html?name=${name}&percentage=${percentage}`, "_blank")
     // window.location.href = "certificate.html";
 })
@@ -182,14 +197,14 @@ retakeQuizBtn.addEventListener('click', () => {
     // wrongs = 0;
     // displayQuestion();
     winDialog.style.display = 'none';
-    // startQuizBtn.style.display = 'block';
+    startQuizBtn.style.display = 'none';
     // document.getElementById('inputFields').style.display = 'block';
     // quizContent.style.display = 'none';
     // nameInput.value = '';
     // instagramInput.value = '';
     // scoreBanner.style.display = 'none';
     startTime = Date.now();
-    quizContent.style.display = 'block';
+    // quizContent.style.display = 'block';
     scoreBanner.style.display = 'block';
     shuffle(questions);
     questions.splice(1);
@@ -200,6 +215,13 @@ retakeQuizBtn.addEventListener('click', () => {
 });
 
 startQuizBtn.addEventListener('click', () => {
+    handleInputError(nameInput);
+    handleInputError(instagramInput);
+    if (nameInput.value === '' || instagramInput.value === '') {
+        return;
+    } 
+    const quizRankBtn = document.getElementById('quizrank');
+    quizRankBtn.style.display = 'none';
     hideQuizImage();
     startTime = Date.now();
     startQuizBtn.style.display = 'none';
@@ -260,66 +282,61 @@ function showQuizImage() {
 //     // Other logic for retaking the quiz...
 // });
 
-const quizRankBtn = document.getElementById('quizrank');
+// const quizRankBtn = documet.getElementById('quizrank');
 // Event listener for the "Start Quiz" button
-startQuizBtn.addEventListener('click', () => {
-    // Hide the quiz rank button
-    quizRankBtn.style.display = 'none';
-    
-    // Other logic for starting the quiz...
-});
+// startQuizBtn.addEventListener('click', () => {
+//     // Hide the quiz rank button
+//     quizRankBtn.style.display = 'none';
+
+//     // Other logic for starting the quiz...
+// });
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const nameInput = document.getElementById("nameInput");
     const instagramInput = document.getElementById("instagramInput");
     const startQuizBtn = document.getElementById("startQuizBtn");
 
     // Disable the Start Quiz button by default
-    startQuizBtn.disabled = true;
+    // startQuizBtn.disabled = true;
 
     // Add event listeners to input fields to enable/disable the Start Quiz button and handle errors
-    nameInput.addEventListener("input", function() {
-        toggleStartQuizBtn();
-        handleInputError(nameInput);
-    });
+    // nameInput.addEventListener("input", function() {
+    //     toggleStartQuizBtn();
+    //     handleInputError(nameInput);
+    // });
 
-    instagramInput.addEventListener("input", function() {
-        toggleStartQuizBtn();
-        handleInputError(instagramInput);
-    });
+    // instagramInput.addEventListener("input", function() {
+    //     toggleStartQuizBtn();
+    //     handleInputError(instagramInput);
+    // });
 
-    function toggleStartQuizBtn() {
-        // Enable the Start Quiz button only if both input fields are not empty
-        startQuizBtn.disabled = nameInput.value.trim() === '' || instagramInput.value.trim() === '';
-    }
+    // function toggleStartQuizBtn() {
+    //     // Enable the Start Quiz button only if both input fields are not empty
+    //     startQuizBtn.disabled = nameInput.value.trim() === '' || instagramInput.value.trim() === '';
+    // }
 
-    function handleInputError(inputField) {
-        const errorSpan = inputField.nextElementSibling; // Get the next sibling (span) element
-        // Remove error styling if input field is not empty
-        if (inputField.value.trim() !== '') {
-            inputField.classList.remove("error");
-            errorSpan.style.display = "none"; // Hide the error message
-        } else {
-            // Add error styling if input field is empty
-            inputField.classList.add("error");
-            errorSpan.style.display = "block"; // Show the error message
-        }
-    }
+    // startQuizBtn.addEventListener("click", function() {
+    //     console.log(nameInput.value);
+    //     // Check if the input fields are empty (this should not be necessary now since the button is disabled)
+    //     if (nameInput.value === '') {
+    //         console.log("Name empty");
+    //         handleInputError(nameInput);
+    //         // Display error message and indicate the error on input fields (optional)
+    //         return; // Prevent quiz from starting
+    //     } else if (instagramInput.value === '') {
+    //         console.log("Insta id empty");
+    //         handleInputError(instagramInput);
+    //         return;
+    //     } else {
+    //         startQuiz();
+    //     }
 
-    startQuizBtn.addEventListener("click", function() {
-        // Check if the input fields are empty (this should not be necessary now since the button is disabled)
-        if (nameInput.value.trim() === '' || instagramInput.value.trim() === '') {
-            // Display error message and indicate the error on input fields (optional)
-            return; // Prevent quiz from starting
-        }
+    //     // If input fields are filled, proceed to start the quiz
+    // });
 
-        // If input fields are filled, proceed to start the quiz
-        startQuiz();
-    });
-
-    function startQuiz() {
-        // Add your code to start the quiz here
-    }
+    // function startQuiz() {
+    //     // Add your code to start the quiz here
+    // }
 });
-    
+
