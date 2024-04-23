@@ -5,6 +5,7 @@
             /* font-weight: bold;
             font-style: normal; */
         }
+
         body {
             font-family: 'HarryPotter';
             color: #3e2723;
@@ -45,15 +46,14 @@
         #nextQuestionBtn,
         .dialogBtn,
         .product-btn {
-            margin-bottom: 10px;
-            padding: 5px 20px;
-            border: none;
-            border-radius: 10px;
+            padding: 10px 20px;
             background-color: #794726;
-            color: #f2e8df;
-            font-size: 0.9rem;
+            /* Blue color, you can change this */
+            color: #fff;
+            /* White text color */
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
 
         .quizOption {
@@ -119,7 +119,7 @@
             .dialogBtn,
             .product-btn {
                 padding: 10px 20px;
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
 
             .quizOption {
@@ -141,7 +141,7 @@
             #nextQuestionBtn,
             .dialogBtn,
             .product-btn {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
 
             .quizQuestion {
@@ -181,18 +181,19 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: #e8dacd;
-            padding: 10px;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: center;
             animation: fadeIn 0.5s ease forwards;
             width: 80%;
             max-width: 500px;
+            font-size: 1rem;
         }
 
         #winDialogContent {
             color: #452915;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1rem;
         }
 
         #winDialogContent img {
@@ -200,7 +201,7 @@
         }
 
         #retakeQuizBtn {
-            font-family: 'HarryPotter';
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
 
         .quizOption {
@@ -243,199 +244,251 @@
         }
 
         @keyframes scoreBannerAnimation {
-    0% {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
 
-@keyframes scoreBannerAnimation {
-    0% {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-#scoreBanner {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.0);
-    color: #fff;
-    padding: 20px 10px;
-    text-align: center;
-    z-index: 1000;
-    animation: scoreBannerAnimation 1s ease forwards;
-}
+        @keyframes scoreBannerAnimation {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
 
-/* Separate styles for each score */
-.scoreItem {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-family: 'HarryPotter', sans-serif; /* Harry Potter font */
-    text-transform: uppercase;
-    font-size: 1rem;
-    letter-spacing: 2px;
-}
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-#questions {
-    background-color: #206fe1; /* Ravenclaw blue */
-    animation: glowing 2s infinite alternate;
-}
+        #scoreBanner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.0);
+            color: #fff;
+            padding: 20px 10px;
+            text-align: center;
+            z-index: 1000;
+            animation: scoreBannerAnimation 1s ease forwards;
+        }
 
-#rights {
-    background-color: #036541; /* Slytherin green */
-    animation: glowing 2s infinite alternate-reverse;
-}
+        /* Separate styles for each score */
+        .scoreItem {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: 'HarryPotter', sans-serif;
+            /* Harry Potter font */
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
 
-#wrongs {
-    background-color: #dd3e57; /* Gryffindor red  */
-    animation: glowing 2s infinite alternate;
-}
+        #questions {
+            background-color: #206fe1;
+            /* Ravenclaw blue */
+            animation: glowing 2s infinite alternate;
+        }
 
+        #rights {
+            background-color: #036541;
+            /* Slytherin green */
+            animation: glowing 2s infinite alternate-reverse;
+        }
 
-@keyframes glowing {
-    0% {
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    }
-    100% {
-        box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 80px rgba(255, 255, 255, 0.6), 0 0 120px rgba(255, 255, 255, 0.6);
-    }
-}
-
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-    .scoreItem {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .scoreItem {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-    }
-}
+        #wrongs {
+            background-color: #dd3e57;
+            /* Gryffindor red  */
+            animation: glowing 2s infinite alternate;
+        }
 
 
-.container {
-    max-width: 1000px;
-    margin: 50px auto;
-    text-align: center;
-  }
+        @keyframes glowing {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            }
 
-  #certificate {
-    position: relative;
-    margin-top: 20px;
-    display: none;
-  }
+            100% {
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 80px rgba(255, 255, 255, 0.6), 0 0 120px rgba(255, 255, 255, 0.6);
+            }
+        }
 
-  #certificate img {
-    max-width: 100%;
-  }
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .scoreItem {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
 
-  #certificate-text {
-    position: absolute;
-    top: 56%; /* Adjust top position as needed */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    font-size: 1.5vw; /* Adjust font size in terms of viewport width (vw) */
-    color: black;
-    text-align: center;
-    width: 80%; /* Adjust width as needed */
-    font-family: 'HarryPotter';
-  }
-
-  #certificate-title h3 {
-    margin-bottom: 10px;
-    font-size: 3vw; /* Adjust font size for the name */
-    font-family: 'HarryPotter';
-  }
-
-  #certificate-text p {
-    margin: 10px 0;
-    text-align: justify;
-  }
-  
-  #certificate-cer {
-    position: absolute;
-    top: 42%; /* Adjust top position as needed */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    font-size: 1.5vw; /* Adjust font size in terms of viewport width (vw) */
-    color: black;
-    text-align: center;
-    width: 80%; /* Adjust width as needed */
-  }
-  
-  #certificate-des {
-    position: absolute;
-    top: 92%; /* Adjust top position as needed */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    font-size: 1.5vw; /* Adjust font size in terms of viewport width (vw) */
-    color: black;
-    text-align: center;
-    width: 80%; /* Adjust width as needed */
-  }
-  
-  #certificate-title {
-    position: absolute;
-    top: 45%; /* Adjust top position as needed */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    font-size: 1.5vw; /* Adjust font size in terms of viewport width (vw) */
-    color: black;
-    text-align: center;
-    width: 80%; /* Adjust width as needed */
-  }
-  
-  #certificate-bottom {
-    position: absolute;
-    top: 70%; /* Adjust top position as needed */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    font-size: 1vw; /* Adjust font size in terms of viewport width (vw) */
-    color: black;
-    text-align: center;
-    width: 80%; /* Adjust width as needed */
-  }
+        @media screen and (max-width: 480px) {
+            .scoreItem {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
 
 
-/* Apply the custom font to desired elements */
-#certificate-text,
-#certificate-cer,
-#certificate-des,
-#certificate-title,
-#certificate-bottom {
-font-family: 'HarryPotter'; /* Use the custom font, fallback to Arial or sans-serif if the custom font is not available */
-}
-.dialogBtn {
-    margin: 10px auto; /* Center the buttons horizontally and add some margin */
-    display: block; /* Make the buttons a block element to occupy full width */
-    padding: 8px 16px; /* Adjust padding to make the buttons smaller */
-    font-size: 0.9rem; /* Reduce the font size of the button text */
-}
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        #certificate {
+            position: relative;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #certificate img {
+            max-width: 100%;
+        }
+
+        #certificate-text {
+            position: absolute;
+            top: 56%;
+            /* Adjust top position as needed */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            font-size: 1.5vw;
+            /* Adjust font size in terms of viewport width (vw) */
+            color: black;
+            text-align: center;
+            width: 80%;
+            /* Adjust width as needed */
+            font-family: 'HarryPotter';
+        }
+
+        #certificate-title h3 {
+            margin-bottom: 10px;
+            font-size: 3vw;
+            /* Adjust font size for the name */
+            font-family: 'HarryPotter';
+        }
+
+        #certificate-text p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        #certificate-cer {
+            position: absolute;
+            top: 42%;
+            /* Adjust top position as needed */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            font-size: 1.5vw;
+            /* Adjust font size in terms of viewport width (vw) */
+            color: black;
+            text-align: center;
+            width: 80%;
+            /* Adjust width as needed */
+        }
+
+        #certificate-des {
+            position: absolute;
+            top: 92%;
+            /* Adjust top position as needed */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            font-size: 1.5vw;
+            /* Adjust font size in terms of viewport width (vw) */
+            color: black;
+            text-align: center;
+            width: 80%;
+            /* Adjust width as needed */
+        }
+
+        #certificate-title {
+            position: absolute;
+            top: 45%;
+            /* Adjust top position as needed */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            font-size: 1.5vw;
+            /* Adjust font size in terms of viewport width (vw) */
+            color: black;
+            text-align: center;
+            width: 80%;
+            /* Adjust width as needed */
+        }
+
+        #certificate-bottom {
+            position: absolute;
+            top: 70%;
+            /* Adjust top position as needed */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            font-size: 1vw;
+            /* Adjust font size in terms of viewport width (vw) */
+            color: black;
+            text-align: center;
+            width: 80%;
+            /* Adjust width as needed */
+        }
 
 
+        /* Apply the custom font to desired elements */
+        #certificate-text,
+        #certificate-cer,
+        #certificate-des,
+        #certificate-title,
+        #certificate-bottom {
+            font-family: 'HarryPotter';
+            /* Use the custom font, fallback to Arial or sans-serif if the custom font is not available */
+        }
 
+        .dialogBtn {
+            margin: 10px auto;
+            /* Center the buttons horizontally and add some margin */
+            display: block;
+            /* Make the buttons a block element to occupy full width */
+            padding: 8px 16px;
+            /* Adjust padding to make the buttons smaller */
+            font-size: 0.9rem;
+            /* Reduce the font size of the button text */
+        }
 
+        /* CSS for the button */
+        #quizrank {
+            padding: 10px 20px;
+            background-color: #794726;
+            /* Blue color, you can change this */
+            color: #fff;
+            /* White text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
+        /* CSS for hover effect */
+        #quizrank:hover {
+            background-color: #794726;
+            /* Darker blue on hover, you can change this */
+        }
+
+        /* CSS for active effect */
+        #quizrank:active {
+            background-color: #794726;
+            /* Even darker blue when clicked, you can change this */
+            transform: translateY(1px);
+            /* Push the button down slightly on click */
+        }
+
+    
