@@ -7,20 +7,12 @@
   <title>Certificate Generator</title>
   <style>
     
-     /* Common styles */
-     @font-face {
-            font-family: 'HP';
-            src: url('Fonts/Hp.ttf') format('truetype');
-            /* font-weight: bold;
-            font-style: normal; */
-        }
 
     body {
       font-family: 'Times New Roman', Times, serif;
       margin: 0;
       padding: 0;
     }
-
 
     .container {
       max-width: 3000px;
@@ -61,115 +53,116 @@
       object-fit: cover;
     }
 
-    .certificate-text {
-      position: absolute;
-      top: 46%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 20px;
-      font-size: 50px;
-      color: black;
-      text-align: center;
-      width: 80%;
-    }
-
-    .certificate-text h3 {
-      font-size: 100px;
-      margin-bottom: 10px;
-    }
-
-    .certificate-text p {
-      margin: 10px 0;
-      text-align: justify;
-    }
-
-    .certificate-bottom {
-      position: absolute;
-      bottom: 600px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 40px;
-      color: black;
-      text-align: center;
-      width: 80%;
-    }
-
-    .certificate-date {
-      position: absolute;
-      bottom: 120px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 30px;
-      color: black;
-      text-align: center;
-      width: 80%;
-    }
-
   </style>
 </head>
 
-<body onload="generateCertificate(); setTimeout(downloadCertificate, 1000)">
+<body onload="generateAndDownloadCertificate()">
   <div class="container">
     <div id="certificate"></div>
-    
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
-    function generateCertificate() {
-      var urlParams = new URLSearchParams(window.location.search);
-      const name = urlParams.get('name'); // Example name
-      const score = parseInt(urlParams.get('percentage')); // Example score
-      if (score >= 80) {
-        const certificateText = `
-      <div class="certificate-text">
-        <h3>${name}</h3>
-        <p>This certifies that <strong>${name}</strong> has successfully earned the title of "Certified Potterhead" through exemplary performance in the Wizardzworld Quiz. This distinction acknowledges profound knowledge and passion for the magical universe of Harry Potter. Moreover, the individual has achieved a score of <strong>${score}%</strong>.</p>
-      </div>
-      <div class="certificate-bottom">
-        <p>By virtue of this certification, ${name} is hereby acknowledged as a beacon of Potterhead pride within the global community of Harry Potter enthusiasts. May they continue to uphold the spirit of magic and adventure that defines the essence of Wizardzworld and the wizarding world of Harry Potter.</p>
-      </div>
-      <div class="certificate-date">
-        <p>Awarded on ${new Date().toLocaleDateString()}</p>
-      </div>
+    function generateAndDownloadCertificate() {
+  var urlParams = new URLSearchParams(window.location.search);
+  const name = urlParams.get('name'); // Example name
+  const score = parseInt(urlParams.get('percentage')); // Example score
+  if (score >= 80) {
+    const certificateText = `
+      <h3><b>${name}</b></h3>
+      <p>This certifies that <b><strong>${name}</strong></b> has successfully earned the title of "Certified Potterhead"<br>through exemplary performance in the Wizardzworld Quiz. This distinction acknowledges profound knowledge and passion for the magical universe of Harry Potter. Moreover, the individual has achieved a score of <strong>${score}%</strong>.</p>
+      <br><br><br><br>br><br><br><br><p>Awarded on ${new Date().toLocaleDateString()}</p>
+        
     `;
-        const certificate = document.getElementById('certificate');
-        const certificateImg = new Image();
-        certificateImg.onload = async function () {
-          certificateImg.classList.add('certificate-img'); // Add a class to style the image
-          certificate.innerHTML = `${certificateText}`;
-          certificate.appendChild(certificateImg); // Append the image after text
-          certificate.style.display = 'block';
-          document.getElementById('downloadBtn').style.display = 'block';
 
-          // Start download only after the certificate image has loaded
-          await downloadCertificate();
-        };
-        certificateImg.src = 'https://i.postimg.cc/zvbxsLnx/Certificate-48.jpg'; // Replace with your certificate image URL
+    // Create a canvas element to draw the certificate
+    const canvas = document.createElement('canvas');
+    canvas.width = 3000; // Width of the certificate
+    canvas.height = 2400; // Height of the certificate
+    const ctx = canvas.getContext('2d');
+
+    // Draw certificate background image
+const backgroundImage = new Image();
+backgroundImage.src = 'Resources/Certificate.jpg'; // Replace with your certificate image URL
+backgroundImage.onload = function () {
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+  // Parse certificate text and render it onto the canvas
+  const container = document.createElement('div');
+  container.innerHTML = certificateText;
+
+  // Set default font size and other styles
+  ctx.font = '40px HP'; // Adjust font family and size as needed
+  ctx.fillStyle = 'black'; // Default text color
+  ctx.textAlign = 'center'; // Default text alignment
+
+  // Calculate the top position for the text
+  let topPosition = 1100;
+  for (const child of container.children) {
+    const tagName = child.tagName.toLowerCase();
+    let lineHeight = 100; // Default line height
+    if (tagName === 'h3') {
+      // Apply styles for headings
+      ctx.font = '120px HP'; // Adjust font size and family for headings
+      lineHeight = 120; // Adjust line height for headings
+    } else if (tagName === 'p') {
+      ctx.font = '100px HP'; // Adjust font size and family for headings
+      lineHeight = 80; // Adjust line height for headings
+      // Apply different font sizes for paragraphs
+      const paragraphClass = child.className; // Get the class name of the paragraph
+      if (paragraphClass === 'award-date') {
+        ctx.font = ' 100px HP'; // Adjust font size for the award date
+      } else if (paragraphClass === 'second-para') {
+        ctx.font = 'bold 50px HP'; // Adjust font size for the second paragraph
       } else {
-        alert('Score must be at least 80% to generate certificate.');
+        // Default font size for other paragraphs
+        ctx.font = ' 60px HP'; // Adjust font size for other paragraphs
       }
     }
 
-    async function sleep(time) {
-      await new Promise(resolve => {
-        setTimeout(resolve, time);
-      });
-    }
+    // Split text into lines to fit within certificate width
+    const textLines = splitTextIntoLines(child.innerText, canvas.width * 0.8, ctx.font);
 
-    async function downloadCertificate() {
-      const certificate = document.getElementById('certificate');
-      // Convert certificate to image
-      const dataUrl = await domtoimage.toJpeg(certificate, { quality: 1.0 })
-      const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = 'certificate.jpg';
-      await sleep(2000);
-      await link.click();
-      await sleep(2000);
-      window.close();
+    // Render each line
+    for (const line of textLines) {
+      ctx.fillText(line, canvas.width / 2, topPosition);
+      topPosition += lineHeight; // Increment top position for next line
     }
+  }
+
+  // Convert canvas to data URL and initiate download
+  const dataUrl = canvas.toDataURL('image/jpeg');
+  const link = document.createElement('a');
+  link.href = dataUrl;
+  link.download = 'certificate.jpg';
+  link.click();
+};
+
+// Function to split text into lines to fit within a given width
+function splitTextIntoLines(text, maxWidth, font) {
+  const words = text.split(' ');
+  const lines = [];
+  let currentLine = words[0];
+
+  ctx.font = font;
+  for (let i = 1; i < words.length; i++) {
+    const word = words[i];
+    const width = ctx.measureText(currentLine + ' ' + word).width;
+    if (width < maxWidth) {
+      currentLine += ' ' + word;
+    } else {
+      lines.push(currentLine);
+      currentLine = word;
+    }
+  }
+  lines.push(currentLine);
+  return lines;
+}
+
+
+
+  } else {
+    alert('Score must be at least 80% to generate certificate.');
+  }
+}
 
 
   </script>
