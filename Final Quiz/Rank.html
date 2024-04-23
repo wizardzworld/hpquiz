@@ -305,13 +305,14 @@ th:last-child {
 
 
     // Get the button element
-    var button = document.getElementById("quizBtn");
+var button = document.getElementById("quizBtn");
 
-    // Add a click event listener to the button
+// Add a click event listener to the button
 button.addEventListener("click", function() {
-    // Redirect the user to another website in a new tab when the button is clicked
-    window.open("https://wizardzworld.com/pages/certificate-quiz", "_blank");
+    // Redirect the current window to the new URL
+    window.location.replace("https://wizardzworld.com/pages/certificate-quiz");
 });
+
 
 
 
