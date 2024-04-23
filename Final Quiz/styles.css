@@ -491,4 +491,13 @@
             /* Push the button down slightly on click */
         }
 
-    
+        .error {
+            border: 1px solid red; /* Add a red border to indicate error */
+        }
+        
+        .error-message {
+            display: none;
+            color: red;
+            font-size: 12px;
+        }
+        
