@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container"><br><br>
+        <img src="https://i.postimg.cc/5NNjkgv6/quiz-2.png" alt="Quiz Image" id="quizImage">
+        <div id="inputFields">
+            <input type="text" id="nameInput" class="inputField" placeholder="Enter your name"><br><br>
+        </div>
+        <button id="startQuizBtn">Start Quiz</button>
+        <div id="quizContent" style="display: none;">
+            <h2>
+                <div id="quizQuestion"></div>
+            </h2>
+            <div id="quizOptions"></div>
+            <div id="dialogsContainer">
+                <div id="quizDialog" class="quizDialog">
+                    <div id="dialogContent" class="dialogContent"></div>
+                </div>
+
+                <div id="winDialog" class="quizDialog">
+                    <div id="winDialogContent" class="dialogContent"></div>
+                    <div id="productContainer" class="product"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  <script src="questions.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+
+</html>
