@@ -101,16 +101,9 @@
 
 </div>
 
-<div class="container" onclick="openDialog()">
+<div class="container" onclick="openURL('https://wizardzworld.github.io/hpquiz/Sorting%20Quiz/sorting%20quiz.html')">
   <div class="overlay"></div>
   <img class="image" src="sorting.jpg" alt="Image">
-</div>
-
-<div id="dialog" class="dialog">
-  <div class="dialog-content">
-    <span class="close" onclick="closeDialog()">&times;</span>
-    <p>Coming soon!</p>
-  </div>
 </div>
 
 
@@ -118,18 +111,6 @@
   function openURL(url) {
     window.open(url, '_blank');
   }
-
-// Function to open the dialog box
-function openDialog() {
-  var dialog = document.getElementById('dialog');
-  dialog.style.display = 'block';
-}
-
-// Function to close the dialog box
-function closeDialog() {
-  var dialog = document.getElementById('dialog');
-  dialog.style.display = 'none';
-}
 
 </script>
 
