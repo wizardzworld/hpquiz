@@ -105,6 +105,6 @@ const houseImages = {
         Gryffindor: "https://i.pinimg.com/originals/7b/29/5e/7b295ec71ad8886880e560774486fe39.jpg",
         Slytherin: "https://i.pinimg.com/564x/37/d7/3d/37d73d2ac0a3cb2df4f1697def4a5053.jpg",
         Hufflepuff: "https://i.pinimg.com/564x/34/27/bd/3427bd5072cf5552bdd09ef5e64620cf.jpg",
-        Ravenclaw: "https://i.pinimg.com/564x/00/4a/1c/004a1c19a8cf6fb41bb3bddd6caef647.jpg"
+        Ravenclaw: "https://logos-world.net/wp-content/uploads/2022/11/Ravenclaw-Symbol.png"
     };
 
