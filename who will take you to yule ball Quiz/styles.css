@@ -1,0 +1,273 @@
+/* Common styles */
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: #3e2723;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: 100% 100%;
+            /* Stretch the background image to cover the entire viewport */
+            background-position: center center;
+            background-attachment: fixed;
+            /* Fix the background image in place */
+        }
+
+        /* Mobile styles */
+        @media only screen and (max-width: 768px) {
+            body {
+                background-image: url('mobile.jpg');
+                background-size: cover;
+                /* Adjust as needed */
+                /* Additional mobile-specific styles if necessary */
+            }
+        }
+
+        /* Desktop styles */
+        @media only screen and (min-width: 769px) {
+            body {
+                background-image: url('desktop.jpg');
+                background-size: cover;
+                /* Adjust as needed */
+                background-position: center center;
+                background-attachment: fixed;
+                /* Additional desktop-specific styles if necessary */
+            }
+        }
+
+        .container {
+            max-width: 700px;
+            padding: 20px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        #startQuizBtn,
+        #nextQuestionBtn,
+        .dialogBtn,
+        .product-btn {
+            margin-bottom: 20px;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            background-color: #794726;
+            color: #f2e8df;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quizOption {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            background-color: #774a2d;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.2rem;
+            color: #ffffff;
+            /* Set font color to white */
+        }
+
+        .quizDialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #eadcd0;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .dialogContent {
+            color: #442a19;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @font-face {
+            font-family: 'HarryPotter';
+            src: url('https://fonts.gstatic.com/s/gobold/v6/L0x8DFMxk1MP9K3RvA.woff2');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                max-width: 90%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            #startQuizBtn,
+            #nextQuestionBtn,
+            .dialogBtn,
+            .product-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+
+            .quizOption {
+                padding: 10px;
+                font-size: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            #startQuizBtn,
+            #nextQuestionBtn,
+            .dialogBtn,
+            .product-btn {
+                font-size: 1.5rem;
+            }
+
+            .quizQuestion {
+                font-size: 2.5rem;
+            }
+
+            .quizOption {
+                padding: 8px;
+                font-size: 1.9rem;
+            }
+        }
+
+        #quizImage {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .inputField {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #a1887f;
+            background-color: #d7ccc8;
+            color: #000000;
+            font-size: 1.2rem;
+        }
+
+        #startQuizBtn {
+            margin: 0 auto;
+        }
+
+        #winDialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #e8dacd;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeIn 0.5s ease forwards;
+            /* Set a specific width */
+            width: 80%;
+            /* Adjust as needed */
+            max-width: 500px;
+            /* Add a maximum width if needed */
+        }
+
+        #winDialogContent {
+            color: #452915;
+        }
+
+        #winDialogContent img {
+            border-radius: 10px;
+            /* Adjust the value to your preference */
+            /* Other CSS styles for the image remain the same */
+            width: 200px;
+            height: auto;
+        }
+
+        #retakeQuizBtn {
+            font-family: 'Cormorant Garamond', serif;
+            /* Apply the same font */
+            /* Other CSS styles for the button remain the same */
+        }
+
+        /* Default font size for quiz options */
+        .quizOption {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            background-color: #774a2d;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.2rem;
+            /* Default font size */
+            color: #ffffff;
+            /* Set font color to white */
+        }
+
+        /* Media query for screens up to 768px width */
+        @media screen and (max-width: 768px) {
+            .quizOption {
+                font-size: 1rem;
+                /* Reduce font size for smaller screens */
+            }
+        }
+
+        /* Media query for screens up to 480px width */
+        @media screen and (max-width: 480px) {
+            .quizOption {
+                font-size: 0.9rem;
+                /* Further reduce font size for even smaller screens */
+            }
+        }
+
+        /* Default font size for quiz questions */
+        #quizQuestion {
+            font-size: 2rem;
+            /* Default font size */
+        }
+
+        /* Media query for screens up to 768px width */
+        @media screen and (max-width: 768px) {
+            #quizQuestion {
+                font-size: 1.5rem;
+                /* Reduce font size for smaller screens */
+            }
+        }
+
+        /* Media query for screens up to 480px width */
+        @media screen and (max-width: 480px) {
+            #quizQuestion {
+                font-size: 1.2rem;
+                /* Further reduce font size for even smaller screens */
+            }
+        }
